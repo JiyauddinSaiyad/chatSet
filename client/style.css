@@ -69,20 +69,21 @@ body {
   height: 36px;
   border-radius: 5px;
 
-  background: #5436DA;
+  background: #ffcf00;
 
   display: flex;
   justify-content: center;
   align-items: center;
+  /* border-radius: 50%; */
 }
 
 .ai .profile {
-  background: #10a37f;
+  background: #39b6ff;
 }
 
 .profile img {
-  width: 60%;
-  height: 60%;
+  width: 90%;
+  /* height: 60%; */
   object-fit: contain;
 }
 
@@ -148,3 +149,61 @@ form img {
   width: 30px;
   height: 30px;
 }
+
+
+#loading {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(52, 53, 65, 1);
+  z-index: 9999;
+}
+
+#loading img {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60%;
+  /* height: 100%; */
+}
+
+#social-media-icons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  position: fixed;
+  left: 10px;
+  bottom: 60px;
+}
+
+#social-media-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: white;
+  margin-bottom: 10px;
+  /* padding: 10px; */
+}
+
+#social-media-icons img {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+#social-media-icons a:hover {
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+}
+
+
+

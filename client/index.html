@@ -3,19 +3,39 @@
 
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="favicon.ico" />
+  <link rel="icon" type="image/svg+xml" href="./assets/bot.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ChatSet Ai by Jiyauddin</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 
 <body>
+  <!-- loading -->
+  <div id="loading">
+    <img src="./assets/loading.gif" alt="Loading..." />
+  </div>
+
+  <!-- End Loading  -->
   <div id="app">
     <div id="chat_container"></div>
 
+    <!-- Add social media icons here -->
+    <div id="social-media-icons">
+      <a href="https://www.linkedin.com/in/jiyauddin-saiyad/"  target="_blank">
+        <img src="./assets/linkedin-icon.png" alt="LinkedIn">
+      </a>
+      <a href="https://github.com/JiyauddinSaiyad"  target="_blank">
+        <img src="./assets/github-icon.png" alt="GitHub">
+      </a>
+      <a href="https://jiyauddinsaiyad.github.io/"  target="_blank">
+        <img src="./assets/portfolio.png" alt="Portfolio">
+      </a>
+    </div>
+
+
     <form>
-      <textarea name="prompt" rows="1" cols="1" placeholder="Ask codex..."></textarea>
-      <button type="submit"><img src="assets/send.svg" alt="send" />
+      <textarea name="prompt" rows="1" cols="1" placeholder="Ask Chat-Set AI..."></textarea>
+      <button type="submit"><img id="send" src="assets/send.svg" alt="send" />
     </form>
   </div>
 
