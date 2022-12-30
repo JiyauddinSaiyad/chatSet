@@ -37,6 +37,9 @@ body {
 
   padding-bottom: 20px;
   scroll-behavior: smooth;
+
+  /* border: 1px solid red; */
+  margin-bottom: 65px;
 }
 
 /* hides scrollbar */
@@ -114,7 +117,7 @@ body {
 }
 
 form {
-  width: 90%;
+  width: 100%;
   max-width: 1280px;
   margin: 0 auto;
   padding: 10px;
@@ -125,13 +128,13 @@ form {
   gap: 10px;
 
   position: fixed;
-  bottom: 5px;
+  bottom: 2px;
   left: 0;
   right: 0;
 
-  border: #343541 5px solid;
-  border-radius: 20px;
-  box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 20px;
+  /* border:  #343541 5px solid; */
+  /* border-radius: 20px; */
+  /* box-shadow: rgba(255, 255, 255, 0.35) 0px 5px 20px; */
 }
 
 textarea {
@@ -145,6 +148,8 @@ textarea {
   border-radius: 5px;
   border: none;
   outline: none;
+
+  /* box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px; */
 }
 
 button {
