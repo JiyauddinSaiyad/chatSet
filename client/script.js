@@ -103,10 +103,12 @@ const handleSubmit = async (e) => {
 
 form.addEventListener('submit', handleSubmit)
 form.addEventListener('keyup', (e) => {
-    if (e.keyCode === 13) {
-        handleSubmit(e)
-    }
-})
+  if (e.keyCode === 13 && !e.shiftKey) {
+    e.preventDefault();
+    handleSubmit(e);
+  }
+});
+
 
 const loading = document.getElementById("loading");
 
