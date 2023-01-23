@@ -4,17 +4,31 @@
 
 ChatSet Ai is a AI chatbot application that allows users to communicate with an artificial intelligence program. This application was created by Jiyauddin Saiyad.
 
-## Demo
+## Demo 👉🏻 [ChatSet-Beta](https://chatset-beta-by-jiyauddin.vercel.app/)
 
-## [ChatSet-Beta](https://chatset-beta-by-jiyauddin.vercel.app/)
+## Updates 
+
+- [x] Voice Typing
+- [x] Surprise Me
+- [x] Improved UI for Mobile Devices
+- [x] Updated Documentation
+- [ ] Fixed Prompt Error
+- [x] Adjusted Chat Box for Mobile Compatibility
+- [ ] Saved Past Conversations
+- [ ] Created Function to Continue Chat from Previous Messages
 
 ## Getting Started
 
 To use ChatSet Ai, follow these steps:
 
 1. Open the HTML file in a web browser or run the development server using the following command:
- ```npm run dev```
-2. Start the server by running the following command: ```npm run server```
+ ```command 
+npm run dev
+```
+2. Start the server by running the following command: 
+ ```command 
+ npm run server
+ ```
 3. Set up the necessary environment variables. This code uses dotenv to manage environment variables, so you will need to create a .env file in the server directory with the following variables:
    - `OPENAI_API_KEY`: Your API key for the [OpenAI](http://openapi.com/api) API. You will need to sign up for an API key to use the ChatSet.
 
@@ -44,9 +58,13 @@ To use the ChatSet, type a question or statement into the text area and click th
 ## Building and Previewing
 
 To build the application for production, run the following command: 
-```npm run build```
+```command 
+npm run build
+```
 To preview the production build, run the following command: 
-```npm run preview```
+```command 
+npm run preview
+```
 
 ## Additional Features
 
