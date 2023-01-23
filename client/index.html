@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>ChatSet Ai by Jiyauddin</title>
   <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
 </head>
 
 <body>
@@ -21,22 +22,31 @@
 
     <!-- Add social media icons here -->
     <div id="social-media-icons">
-      <a href="https://www.linkedin.com/in/jiyauddin-saiyad/"  target="_blank">
+      <a href="https://www.linkedin.com/in/jiyauddin-saiyad/" target="_blank">
         <img src="./assets/linkedin-icon.png" alt="LinkedIn">
       </a>
-      <a href="https://github.com/JiyauddinSaiyad"  target="_blank">
+      <a href="https://github.com/JiyauddinSaiyad" target="_blank">
         <img src="./assets/github-icon.png" alt="GitHub">
       </a>
-      <a href="https://jiyauddinsaiyad.github.io/"  target="_blank">
+      <a href="https://jiyauddinsaiyad.github.io/" target="_blank">
         <img src="./assets/portfolio.png" alt="Portfolio">
       </a>
+      <!-- <button id="clear-button"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Flat_restart_icon.svg/1200px-Flat_restart_icon.svg.png" alt=""></button>
+      <div id="animated-message">Chat cleared!</div> -->
     </div>
 
 
-    <form>
+    <!-- <form>
       <textarea name="prompt" rows="1" cols="1" placeholder="Ask Chat-Set AI..."></textarea>
       <button type="submit"><img id="send" src="assets/send.svg" alt="send" />
+    </form> -->
+    <form>
+      <textarea class="inputBox" name="prompt" rows="1" cols="1" placeholder="Ask Chat-Set AI..." id="prompt"></textarea>
+      <button type="submit"><img id="send" src="assets/send.svg" alt="send" />
+        <button id="microphone-button"><img src="assets/microphone.svg" alt="microphone"></button>
+        <button id="surprise-me-button"><img src="assets/surprise.svg"></button>
     </form>
+
   </div>
 
   <script type="module" src="script.js"></script>
