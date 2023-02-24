@@ -317,3 +317,57 @@ form img {
   }
   
 }
+
+.popup {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.popup-content {
+  background-color: #fefefe;
+  background-color: #40414F;
+  margin: 20% auto;
+  padding: 20px;
+  border: 1px solid #343541;
+  width: 80%;
+  max-width: 500px;
+  text-align: center;
+  border-radius: 10px;
+  color: white;
+  font-size: 1.5rem;
+  box-shadow: rgba(255, 255, 255, 0.30) 0px 2px 0px;
+}
+
+#confirm-clear,
+#cancel-clear {
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 18px;
+  width: 5rem;
+}
+
+#confirm-clear {
+  background-color:   #39b6ff;
+  color: white;
+  margin-right: 10px;
+}
+
+#cancel-clear {
+  background-color: lightgrey;
+  color: black;
+}
+
+#clear-button{
+  transform: scale(1.2);
+}
