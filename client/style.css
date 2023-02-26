@@ -370,4 +370,15 @@ form img {
 
 #clear-button{
   transform: scale(1.2);
+  cursor: pointer;
+}
+
+#cont{
+  border: 1px solid red;
+  width: auto;
+  margin: auto;
+  text-align: center;
+  color: white;
+  font-size: 2rem;
+  display: block;
 }

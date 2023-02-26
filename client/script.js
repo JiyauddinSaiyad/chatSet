@@ -1,5 +1,7 @@
 import bot from './assets/bot-modified.png'
 import user from './assets/profile-ico.png'
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
+import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
@@ -39,24 +41,7 @@ function generateUniqueId() {
     return `id-${timestamp}-${hexadecimalString}`;
 }
 
-// function chatStripe(isAi, value, uniqueId) {
-//     return (
-//         `
-//         <div class="wrapper ${isAi && 'ai'}">
-//             <div class="chat">
-//                 <div class="profile">
-//                     <img 
-//                       src=${isAi ? bot : user} 
-//                       alt="${isAi ? 'bot' : 'user'}" 
-//                     />
-//                 </div>
-//                 <div class="message" id=${uniqueId}>${value} </div>
-//         </div>
-//     `
-//     )
-// }
 
-// New adde 
 function chatStripe(isAi, value, uniqueId) {
     return (
         `
@@ -76,56 +61,36 @@ function chatStripe(isAi, value, uniqueId) {
 }
 
 
-// const handleSubmit = async (e) => {
-//     e.preventDefault()
-
-//     const data = new FormData(form)
-
-//     chatContainer.innerHTML += chatStripe(false, data.get('prompt'))
-
-//     form.reset()
-
-//     const uniqueId = generateUniqueId()
-//     chatContainer.innerHTML += chatStripe(true, " ", uniqueId)
-
-//     chatContainer.scrollTop = chatContainer.scrollHeight;
-
-//     const messageDiv = document.getElementById(uniqueId)
-
-//     loader(messageDiv)
-
-//     const response = await fetch('https://chatset-nmvc.onrender.com', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({
-//             prompt: data.get('prompt')
-//         })
-//     })
-
-//     clearInterval(loadInterval)
-//     messageDiv.innerHTML = " "
-
-//     if (response.ok) {
-//         const data = await response.json();
-//         const parsedData = data.bot.trim();
-
-//         typeText(messageDiv, parsedData)
-//     } else {
-//         const err = await response.text()
-
-//         messageDiv.innerHTML = "Something went wrong"
-//         alert(err)
-//     }
-// }
-
-//  new added 
-
 const handleSubmit = async (e) => {
     e.preventDefault()
 
     const data = new FormData(form)
+    const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+    // Separate even and odd indices
+    const evenIndexMessages = [];
+    const oddIndexMessages = [];
+    for (let i = 0; i < chatHistory.length; i++) {
+        if (i % 2 === 0) {
+            evenIndexMessages.push(chatHistory[i]);
+        } else {
+            oddIndexMessages.push(chatHistory[i]);
+        }
+    }
+
+    // Concatenate even and odd index messages in desired order
+    const sortedMessages = [];
+    for (let i = 0; i < oddIndexMessages.length; i++) {
+        sortedMessages.push(oddIndexMessages[i]);
+        sortedMessages.push(evenIndexMessages[i]);
+    }
+
+    let pre = [];
+    for (let i = 0; i < sortedMessages.length; i++) {
+        const isAi = sortedMessages[i].isAi;
+        const message = sortedMessages[i].message;
+        pre += (isAi, message);
+    }
+    // console.log(pre)
 
     const userMessage = data.get('prompt');
     chatContainer.innerHTML += chatStripe(false, userMessage);
@@ -147,7 +112,7 @@ const handleSubmit = async (e) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: userMessage
+            prompt: pre + ' ' + userMessage
         })
     })
 
@@ -166,6 +131,25 @@ const handleSubmit = async (e) => {
         chatHistory.push({ isAi: false, message: userMessage });
         localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
 
+        // Firebase 
+        const firebaseConfig = {
+            // Your web app's Firebase configuration
+            apiKey: "AIzaSyBSqUa2M19g-dYVufhnRvip0Okgt0etBQg",
+            authDomain: "scrtchapp.firebaseapp.com",
+            databaseURL: "https://scrtchapp.firebaseio.com",
+            projectId: "scrtchapp",
+            storageBucket: "scrtchapp.appspot.com",
+            messagingSenderId: "813564143232",
+            appId: "1:813564143232:web:a70c583acb872490b36865"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Push chat history to Firebase Realtime Database
+        const chatRef = ref(db, 'chats');
+        push(chatRef, chatHistory);
+
     } else {
         const err = await response.text()
 
@@ -174,79 +158,51 @@ const handleSubmit = async (e) => {
     }
 }
 
-// Retrieve chat history from local storage and display it
-// const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-
-// chatHistory.sort((a, b) => new Date(a.timestamp) - new Date(b.timestamp));
-
-// chatHistory.forEach((chatMessage) => {
-//     const { isAi, message, timestamp } = chatMessage;
-//     chatContainer.innerHTML += chatStripe(isAi, message, new Date(timestamp).toLocaleString());
-// });
-
-// const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
-
-// for (let i = chatHistory.length - 1; i >= 0; i--) {
-//   const isAi = chatHistory[i].isAi;
-//   const message = chatHistory[i].message;
-//   chatContainer.innerHTML += chatStripe(isAi, message);
-// }
-
 const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
 
 // Separate even and odd indices
 const evenIndexMessages = [];
 const oddIndexMessages = [];
 for (let i = 0; i < chatHistory.length; i++) {
-  if (i % 2 === 0) {
-    evenIndexMessages.push(chatHistory[i]);
-  } else {
-    oddIndexMessages.push(chatHistory[i]);
-  }
+    if (i % 2 === 0) {
+        evenIndexMessages.push(chatHistory[i]);
+    } else {
+        oddIndexMessages.push(chatHistory[i]);
+    }
 }
 
 // Concatenate even and odd index messages in desired order
 const sortedMessages = [];
 for (let i = 0; i < oddIndexMessages.length; i++) {
-  sortedMessages.push(oddIndexMessages[i]);
-  sortedMessages.push(evenIndexMessages[i]);
+    sortedMessages.push(oddIndexMessages[i]);
+    sortedMessages.push(evenIndexMessages[i]);
 }
 
 // Add messages to chat container
 for (let i = 0; i < sortedMessages.length; i++) {
-  const isAi = sortedMessages[i].isAi;
-  const message = sortedMessages[i].message;
-  chatContainer.innerHTML += chatStripe(isAi, message);
+    const isAi = sortedMessages[i].isAi;
+    const message = sortedMessages[i].message;
+    chatContainer.innerHTML += chatStripe(isAi, message);
 }
 
 const clearButton = document.getElementById('clear-button');
-// clearButton.addEventListener('click', () => {
-//   localStorage.removeItem('chatHistory');
-//   chatContainer.innerHTML = ''; // clear chat container
-// });
-
-
-// chatHistory.forEach((chatMessage) => {
-//     const { isAi, message } = chatMessage;
-//     chatContainer.innerHTML += chatStripe(isAi, message);
-// });
 
 const popupDialog = document.getElementById('popup-dialog');
 const confirmClear = document.getElementById('confirm-clear');
 const cancelClear = document.getElementById('cancel-clear');
 
 clearButton.addEventListener('click', () => {
-  popupDialog.style.display = 'block';
+    popupDialog.style.display = 'block';
 });
 
 confirmClear.addEventListener('click', () => {
-  localStorage.removeItem('chatHistory');
-  chatContainer.innerHTML = ''; // clear chat container
-  popupDialog.style.display = 'none';
+    localStorage.removeItem('chatHistory');
+    chatContainer.innerHTML = '';
+    popupDialog.style.display = 'none';
 });
 
 cancelClear.addEventListener('click', () => {
-  popupDialog.style.display = 'none';
+    popupDialog.style.display = 'none';
 });
 
 
@@ -300,25 +256,6 @@ if ('webkitSpeechRecognition' in window) {
         microphoneButton.disabled = false;
     });
 }
-
-
-// Get the surprise me button and add an event listener
-// const surpriseMeButton = document.getElementById('surprise-me-button');
-// surpriseMeButton.addEventListener('click', () => {
-//     const prompts = [
-//         'What is the meaning of life?',
-//         'Tell me a joke',
-//         'What is the weather like today?',
-//         'What is the capital of France?',
-//         'Who is the president of the United States?'
-//     ];
-
-//     // Generate a random number between 0 and the number of prompts
-//     const randomNumber = Math.floor(Math.random() * prompts.length);
-
-//     // Update the textarea with the random prompt
-//     document.getElementById('prompt').value = prompts[randomNumber];
-// });
 
 const surpriseMeButton = document.getElementById('surprise-me-button');
 surpriseMeButton.addEventListener('click', () => {
@@ -381,7 +318,7 @@ surpriseMeButton.addEventListener('click', () => {
     const randomNumber = Math.floor(Math.random() * prompts.length);
     const textArea = document.querySelector('.inputBox');
     textArea.innerHTML = prompts[randomNumber];
-    // if(textArea.value === ""){
-    //   textArea.value += prompts[randomNumber];
-    // }
+
 });
+
+
