@@ -1,7 +1,18 @@
 import bot from './assets/bot-modified.png'
 import user from './assets/profile-ico.png'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, set, update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+
+
+// Check if the user is already logged in
+if (localStorage.getItem("loggedInUser")) {
+    // Show alert
+    // console.log("Logged In")
+    alert("You are Logged In 🎉");
+} else {
+    // Redirect to the Login page
+    window.location.href = "login.html";
+}
 
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
@@ -83,7 +94,7 @@ const handleSubmit = async (e) => {
         sortedMessages.push(oddIndexMessages[i]);
         sortedMessages.push(evenIndexMessages[i]);
     }
-
+    // console.log(sortedMessages)
     let pre = [];
     for (let i = 0; i < sortedMessages.length; i++) {
         const isAi = sortedMessages[i].isAi;
@@ -146,9 +157,28 @@ const handleSubmit = async (e) => {
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
+        // Get the current user's email address and username from local storage
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        const userEmail = loggedInUser.email;
+        const key = userEmail.replace(/[@.]/g, "");
+        const userName = loggedInUser.name.split(' ')[0];
+
+        // Construct the key using the username and email address
+        const chatHistoryRefKey = `${userName}_${key}`;
+
         // Push chat history to Firebase Realtime Database
-        const chatRef = ref(db, 'chats');
-        push(chatRef, chatHistory);
+        const chatHistoryRef = ref(db, `chats/${chatHistoryRefKey}`);
+        // push(chatHistoryRef, chatHistory);
+
+        // Only push the new chat messages to Firebase Realtime Database
+        const lastMessageIndex = chatHistory.length - 1;
+        if (lastMessageIndex >= 0 && chatHistory[lastMessageIndex].isAi === false) {
+            const newChatMessages = chatHistory.slice(lastMessageIndex - 1);
+            newChatMessages.forEach(chatMessage => {
+                push(chatHistoryRef, chatMessage);
+            });
+        }
+
 
     } else {
         const err = await response.text()
@@ -320,5 +350,3 @@ surpriseMeButton.addEventListener('click', () => {
     textArea.innerHTML = prompts[randomNumber];
 
 });
-
-
