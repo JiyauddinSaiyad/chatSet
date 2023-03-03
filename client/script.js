@@ -1,18 +1,18 @@
 import bot from './assets/bot-modified.png'
 import user from './assets/profile-ico.png'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, set, update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, set,update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 
 // Check if the user is already logged in
-if (localStorage.getItem("loggedInUser")) {
-    // Show alert
-    // console.log("Logged In")
-    alert("You are Logged In 🎉");
-} else {
-    // Redirect to the Login page
-    window.location.href = "login.html";
-}
+// if (localStorage.getItem("loggedInUser")) {
+//     // Show alert
+//     console.log("Logged In")
+//     alert("You are Logged In 🎉");
+// } else {
+//     // Redirect to the Login page
+//     window.location.href = "login.html";
+// }
 
 const form = document.querySelector('form')
 const chatContainer = document.querySelector('#chat_container')
@@ -157,27 +157,52 @@ const handleSubmit = async (e) => {
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Get the current user's email address and username from local storage
-        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
-        const userEmail = loggedInUser.email;
-        const key = userEmail.replace(/[@.]/g, "");
-        const userName = loggedInUser.name.split(' ')[0];
-
-        // Construct the key using the username and email address
-        const chatHistoryRefKey = `${userName}_${key}`;
-
         // Push chat history to Firebase Realtime Database
-        const chatHistoryRef = ref(db, `chats/${chatHistoryRefKey}`);
-        // push(chatHistoryRef, chatHistory);
+        const chatRef = ref(db, 'chats');
+        push(chatRef, chatHistory);
 
-        // Only push the new chat messages to Firebase Realtime Database
-        const lastMessageIndex = chatHistory.length - 1;
-        if (lastMessageIndex >= 0 && chatHistory[lastMessageIndex].isAi === false) {
-            const newChatMessages = chatHistory.slice(lastMessageIndex - 1);
-            newChatMessages.forEach(chatMessage => {
-                push(chatHistoryRef, chatMessage);
-            });
-        }
+        // // Save chat message in local storage
+        // const chatHistory = JSON.parse(localStorage.getItem('chatHistory')) || [];
+        // chatHistory.push({ isAi: true, message: parsedData });
+        // chatHistory.push({ isAi: false, message: userMessage });
+        // localStorage.setItem('chatHistory', JSON.stringify(chatHistory));
+
+        // // Firebase 
+        // const firebaseConfig = {
+        //     // Your web app's Firebase configuration
+        //     apiKey: "AIzaSyBSqUa2M19g-dYVufhnRvip0Okgt0etBQg",
+        //     authDomain: "scrtchapp.firebaseapp.com",
+        //     databaseURL: "https://scrtchapp.firebaseio.com",
+        //     projectId: "scrtchapp",
+        //     storageBucket: "scrtchapp.appspot.com",
+        //     messagingSenderId: "813564143232",
+        //     appId: "1:813564143232:web:a70c583acb872490b36865"
+        // };
+
+        // const app = initializeApp(firebaseConfig);
+        // const db = getDatabase(app);
+
+        // // Get the current user's email address and username from local storage
+        // const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        // const userEmail = loggedInUser.email;
+        // const key = userEmail.replace(/[@.]/g, "");
+        // const userName = loggedInUser.name.split(' ')[0];
+
+        // // Construct the key using the username and email address
+        // const chatHistoryRefKey = `${userName}_${key}`;
+
+        // // Push chat history to Firebase Realtime Database
+        // const chatHistoryRef = ref(db, `chats/${chatHistoryRefKey}`);
+        // // push(chatHistoryRef, chatHistory);
+
+        // // Only push the new chat messages to Firebase Realtime Database
+        // const lastMessageIndex = chatHistory.length - 1;
+        // if (lastMessageIndex >= 0 && chatHistory[lastMessageIndex].isAi === false) {
+        //     const newChatMessages = chatHistory.slice(lastMessageIndex - 1);
+        //     newChatMessages.forEach(chatMessage => {
+        //         push(chatHistoryRef, chatMessage);
+        //     });
+        // }
 
 
     } else {
