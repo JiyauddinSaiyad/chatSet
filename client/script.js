@@ -1,7 +1,7 @@
 import bot from './assets/bot-modified.png'
 import user from './assets/profile-ico.png'
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-app.js";
-import { getDatabase, ref, push, set,update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
+import { getDatabase, ref, push, set, update } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 
 
 // Check if the user is already logged in
@@ -52,6 +52,24 @@ function generateUniqueId() {
     return `id-${timestamp}-${hexadecimalString}`;
 }
 
+// function copyMessage(button) {
+//     var wrapper = button.closest('.wrapper.ai');
+//     var messageDiv = wrapper.querySelector('.message');
+
+//     if (messageDiv) {
+//         var message = messageDiv.textContent;
+//         var tempInput = document.createElement('input');
+//         tempInput.value = message;
+//         document.body.appendChild(tempInput);
+//         tempInput.select();
+//         document.execCommand('copy');
+//         document.body.removeChild(tempInput);
+
+//         alert('Message copied!');
+//     } else {
+//         alert('Could not find message to copy');
+//     }
+// }
 
 function chatStripe(isAi, value, uniqueId) {
     return (
@@ -65,6 +83,7 @@ function chatStripe(isAi, value, uniqueId) {
                     />
                 </div>
                 <div class="message" data-id="${uniqueId}">${value} </div>
+                ${isAi ? `<button class="copy-button"  onclick="copyMessage(this)">Copy</button>` : ''}
             </div>
         </div>
     `
@@ -375,3 +394,22 @@ surpriseMeButton.addEventListener('click', () => {
     textArea.innerHTML = prompts[randomNumber];
 
 });
+
+// function copyMessage(button) {
+//     var wrapper = button.closest('.wrapper.ai');
+//     var messageDiv = wrapper.querySelector('.message');
+
+//     if (messageDiv) {
+//         var message = messageDiv.textContent;
+//         var tempInput = document.createElement('input');
+//         tempInput.value = message;
+//         document.body.appendChild(tempInput);
+//         tempInput.select();
+//         document.execCommand('copy');
+//         document.body.removeChild(tempInput);
+
+//         alert('Message copied!');
+//     } else {
+//         alert('Could not find message to copy');
+//     }
+// }

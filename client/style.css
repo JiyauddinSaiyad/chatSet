@@ -382,3 +382,24 @@ form img {
   font-size: 2rem;
   display: block;
 }
+
+.copy-button {
+  background-color: #343541;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 14px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.copy-button:hover {
+  background-color: #22232b;
+  transform: scale(1.1);
+  font-weight: bold;
+}

@@ -64,6 +64,26 @@
   </div>
 
   <script type="module" src="script.js"></script>
+  <script>
+    function copyMessage(button) {
+      var wrapper = button.closest('.wrapper.ai');
+      var messageDiv = wrapper.querySelector('.message');
+
+      if (messageDiv) {
+        var message = messageDiv.textContent;
+        var tempInput = document.createElement('input');
+        tempInput.value = message;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempInput);
+
+        alert('Chat copied!');
+      } else {
+        alert('Could not find message to copy');
+      }
+    }
+  </script>
 </body>
 
 </html>
