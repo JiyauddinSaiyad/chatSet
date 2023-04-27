@@ -83,7 +83,7 @@ function chatStripe(isAi, value, uniqueId) {
                     />
                 </div>
                 <div class="message" data-id="${uniqueId}">${value} </div>
-                ${isAi ? `<button class="copy-button"  onclick="copyMessage(this)">Copy</button>` : ''}
+                ${isAi ? `<button class="copy-button"  onclick="copyMessage(this)"> <span class= "name"> Copy </span></button>` : ''}
             </div>
         </div>
     `
@@ -114,7 +114,7 @@ const handleSubmit = async (e) => {
         sortedMessages.push(evenIndexMessages[i]);
     }
     // console.log(sortedMessages)
-    let pre = [];
+    let     pre = [];
     for (let i = 0; i < sortedMessages.length; i++) {
         const isAi = sortedMessages[i].isAi;
         const message = sortedMessages[i].message;
@@ -142,7 +142,7 @@ const handleSubmit = async (e) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            prompt: pre + ' ' + userMessage
+            prompt: pre +' ' + userMessage
         })
     })
 

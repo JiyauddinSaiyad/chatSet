@@ -403,3 +403,37 @@ form img {
   transform: scale(1.1);
   font-weight: bold;
 }
+
+
+
+
+
+.copy-button {
+  color: #fff;
+  padding-right: 0;
+  background-color: #39b6ff;
+  -webkit-clip-path: polygon(0% 0%, 100% 0, 100% 70%, 90% 100%, 0% 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 50%, 75% 100%, 0 100%);
+  font-weight: bold;
+
+}
+
+.copy-button:hover {
+  -webkit-clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 100% 100%, 0 100%);
+}
+
+.copy-button:after {
+  content: "\f0c5";
+  color: #40aeee;
+  font-family: FontAwesome;
+  display: inline-block;
+  position: relative;
+  right: -55px;
+  transition: all 0.2s ease;
+}
+
+.copy-button:hover:after {
+  margin: -5px 15px;
+  right: 0px;
+}
