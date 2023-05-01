@@ -7,16 +7,18 @@ ChatSet Ai is a AI chatbot application that allows users to communicate with an 
 # Demo 👉🏻 [ChatSet-Beta](https://chatset-beta-by-jiyauddin.vercel.app/)
 
 # Updates <img src="./client/assets/new.gif" alt="App Screenshot" width="70px" height="60px"/>
-## All Updates are added 
+## 🆕 PWA and Copy added <img src="./client/assets/new.gif" alt="App Screenshot" width="50px" height="50px"/>
 
 - [x] Voice Typing
+- [x] 🆕 PWA Release
+- [x] 🆕 Copy Button for response 
 - [x] Surprise Me
 - [x] Improved UI for Mobile Devices
 - [x] Updated Documentation
 - [x] Fixed Prompt Error
 - [x] Adjusted Chat Box for Mobile Compatibility
-- [x] Saved Past Conversations <img src="./client/assets/new.gif" alt="App Screenshot" width="30px" height="30px"/>
-- [x] Created Function to Continue Chat from Previous Messages <img src="./client/assets/new.gif" alt="App Screenshot" width="30px" height="30px"/>
+- [x] Saved Past Conversations 
+- [x] Created Function to Continue Chat from Previous Messages
 
 ## Getting Started
 
